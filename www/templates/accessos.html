@@ -1,0 +1,20 @@
+<!-- Llistat accessos d'un usuari determinat -->
+<ion-view title="Accessos {{friend.name}}">
+  <ion-content class="has-header">
+  
+    <ion-list>
+    	<!-- Falta mostrar per ordre de data (Una opció es que el server ens ho torni ordenat..) -->
+    	<div ng-repeat="dia in dies | orderBy : dia.data">
+    		<div class="item item-divider">{{dia.data}}</div>
+    		<ion-item class="item" href="#" ng-repeat="acces in dia.accessosDia">
+    			{{acces.lloc}}  
+                <i class="icon ion-checkmark-round" ng-if="acces.resultat"></i>
+                <i class="icon ion-close-round" ng-if="acces.resultat==false"></i>
+    		<span class="item-note">
+    			{{acces.hora}}
+		    </span>
+    		</ion-item>
+    	</div>
+    </ion-list>
+  </ion-content>
+</ion-view>

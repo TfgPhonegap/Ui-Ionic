@@ -1,0 +1,20 @@
+<!-- Llistat ubicacions d'un usuari determinat -->
+<ion-view title="Ubicacions {{friend.name}}">
+  <ion-content class="has-header">
+  
+    <ion-list>
+    	<!-- Falta mostrar per ordre de data (Una opció es que el server ens ho torni ordenat..) -->
+    	<div ng-repeat="dia in dies | orderBy : dia.data">
+    		<div class="item item-divider">{{dia.data}}</div>
+                                                <!-- Afegir id de ubicacio i passarlo, en comptes del 0 -->
+    		<ion-item class="item" href="#/tab/friend/{{friend.id}}/ubicacions/{{dia.data}}/{{ubicacio.id}}"
+            ng-repeat="ubicacio in dia.ubicacionsDia">
+    			{{ubicacio.lloc}}
+    		<span class="item-note">
+    			{{ubicacio.hora}}
+		    </span>
+    		</ion-item>
+    	</div>
+    </ion-list>
+  </ion-content>
+</ion-view>

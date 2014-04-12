@@ -1,0 +1,16 @@
+<!-- Pull to Refresh example -->
+
+<ion-view title="infinite">
+  <ion-content>
+      <ion-list>
+        <ion-item ng-repeat="a in llista2">{{a}}</ion-item>
+      </ion-list>
+    <ion-infinite-scroll
+		    icon="ion-loading-c"
+        on-infinite="loadMore()"
+		    distance="10%">
+		</ion-infinite-scroll>
+    </ion-content>
+
+</ion-view>
+

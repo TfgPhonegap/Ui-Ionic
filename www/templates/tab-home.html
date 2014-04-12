@@ -1,0 +1,26 @@
+<ion-view title="Home">
+  <ion-content>
+	<ion-refresher
+	    pulling-text="Pull to refresh..."
+	    on-refresh="doRefresh()">
+  	</ion-refresher>
+	    <div class="card" ng-repeat="new in news">
+	    	<div class="item item-avatar">
+			    <img src="{{new.avatar}}">
+			    <h2>{{new.userName}}</h2>
+			    <p ng-if="new.tipus=='acces'"><i class="icon ion-key"></i> Petició d'accés a {{new.lloc}}</p>
+			    <p ng-if="new.tipus=='ubicacio'"><i class="icon ion-android-location"></i> 
+			    Ha estat a {{new.lloc}}</p>
+
+			</div>
+			<div class="item item-body">
+			    <p>
+			      {{new.comment}}
+			    </p>
+			    <!-- Millorar com posar la foto. L'encarregat de passar-la amb les mides correctes 
+			    hauria de ser el server --> 
+			    <img class="full image" src="{{new.img}}">
+			</div>
+	    </div>
+  </ion-content>
+</ion-view>
