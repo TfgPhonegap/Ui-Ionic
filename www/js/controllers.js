@@ -20,6 +20,107 @@ angular.module('starter.controllers', [])
   };
 })
 
+.controller('indexController', function($scope) {
+  $scope.textClick='no apretat';
+ 
+    $scope.textClick='HAS APRETAT :)';
+    console.log('Camera pulsada.......');
+
+    //----------- PROVES CAMERA ---------------
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Uncomment to view the base64-encoded image data
+      // console.log(imageData);
+
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
+
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI
+      // console.log(imageURI);
+
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
+
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+   $scope.fesFoto = function() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoEdit() {
+      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+        destinationType: destinationType.DATA_URL });
+    }
+
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+
+
+
+    //-----------------------------------------
+
+
+})
+
 .controller('FriendsCtrl', function($scope, Friends) {
   $scope.friends = Friends.all();
 })
@@ -58,14 +159,41 @@ angular.module('starter.controllers', [])
 })
 
 .controller('httpController', function($scope, $timeout, $http) {
-  $scope.msg = 'holaa';
+ /* $scope.msg = 'FAIL';
   console.log('fora');
-  $http.get('http://localhost:3000/ubicacions').success(function (result) {
+  $http.get('http://localhost:3000/users').success(function (result) {
       console.log('dins');
-      $scope.msg = 'adeu';
+      $scope.msg = 'SUCCES';
   }).error(function (data) {
-    console.log('error');
-  });
+    console.log('-------error------');
+  });*/
+ $http.get('http://localhost:3000/users')
+    .success(function(data, status, headers, config){
+      console.log("**** SUCCESS ****");
+      console.log(status);
+    })
+    .error(function(data, status, headers, config){
+      console.log("**** ERROR ****");
+      console.log(status);
+      console.log(data);
+    })
+    .then(function(response){
+      console.log("**** THEN ****");
+
+      var jsonData = response.data.mythings;
+      var jsonKeys = Object.keys(jsonData);
+
+      for (var i = 0; i < jsonKeys.length; i++) {
+        var jsonSingle = jsonData[jsonKeys[i]];
+        things.push(jsonSingle);
+      }
+    })
+
+  return {
+    all: function() {
+      return things;
+    }
+  }
 
  
 })

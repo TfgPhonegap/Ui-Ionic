@@ -40,10 +40,16 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/america.jpg \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.device \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.statusbar \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.device/www \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.device/www/device.js \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.statusbar/www/statusbar.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera/www \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/Camera.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraConstants.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/js/services.js \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/js/controllers.js \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/js/app.js \

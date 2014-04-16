@@ -1,5 +1,8 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes.dex : \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/org/apache/cordova/camera/ExifHelper.class \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/org/apache/cordova/camera/CameraLauncher.class \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/org/apache/cordova/camera/FileHelper.class \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/com/ionicframework/starter/R$string.class \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/com/ionicframework/starter/R.class \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/classes/com/ionicframework/starter/R$drawable.class \
