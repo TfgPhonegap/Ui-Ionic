@@ -10,8 +10,8 @@
 		</label>
        <ion-item class="item item-avatar" ng-repeat="friend in friends | filter: search:strict" 
                   item="item" 
-                  href="#/tab/friend/{{friend.id}}">
-          <img src='{{friend.avatar}}'>
+                  href="#/tab/friend/{{friend.name}}">
+          <img src='img/avatars/heisenberg.png'>
 	      <h2>{{friend.name}}</h2>
 	      <p>{{friend.description}}</p>
         </ion-item>

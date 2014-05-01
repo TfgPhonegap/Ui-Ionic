@@ -121,12 +121,23 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
+.controller('FriendsCtrl', function($scope, $http) {
+  $scope.friends = [];
+  $http.get('http://192.168.0.196:3000/users').success(function (result) {
+      $scope.friends = result;
+  }).error(function (data) {
+    console.log('-------error------');
+  });
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
+.controller('FriendDetailCtrl', function($scope, $stateParams, $http) {
+  $scope.friend = [];
+  $http.get('http://192.168.0.196:3000/users/' + $stateParams.friendName).success(function (result) {
+      $scope.friend = result;
+  }).error(function (data) {
+    console.log('-------error------');
+  });
+ 
 })
 
 .controller('ProfileController', function($scope, MyUser) {
@@ -135,9 +146,15 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('UbicacionsController', function($scope, $stateParams, Ubicacions, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-  $scope.dies = Ubicacions.all();
+.controller('UbicacionsController', function($scope, $stateParams, $http) {
+  $scope.userName = $stateParams.userName;
+  console.log($scope.userName);
+  $scope.ubicacions = [];
+  $http.get('http://192.168.0.196:3000/ubicacions/' + $stateParams.userName).success(function (result) {
+      $scope.ubicacions = result;
+  }).error(function (data) {
+    console.log('-------error------');
+  });
 })
 
 .controller('AccessosController', function($scope, $stateParams, Accessos, Friends) {
@@ -159,15 +176,15 @@ angular.module('starter.controllers', [])
 })
 
 .controller('httpController', function($scope, $timeout, $http) {
- /* $scope.msg = 'FAIL';
+  $scope.users = [];
   console.log('fora');
-  $http.get('http://localhost:3000/users').success(function (result) {
+  $http.get('http://192.168.0.196:3000/users').success(function (result) {
       console.log('dins');
-      $scope.msg = 'SUCCES';
+      $scope.users = result;
   }).error(function (data) {
     console.log('-------error------');
-  });*/
- $http.get('http://localhost:3000/users')
+  });
+ /*$http.get('http://localhost:3000/users')
     .success(function(data, status, headers, config){
       console.log("**** SUCCESS ****");
       console.log(status);
@@ -193,7 +210,7 @@ angular.module('starter.controllers', [])
     all: function() {
       return things;
     }
-  }
+  }*/
 
  
 })

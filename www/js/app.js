@@ -50,7 +50,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
     .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+      url: '/friend/:friendName',
       views: {
         'tab-friends': {
           templateUrl: 'templates/friend-detail.html',
@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
      .state('tab.friend-ubicacions', {
-      url: '/friend/:friendId/ubicacions',
+      url: '/friend/:userName/ubicacions',
       views: {
         'ubicacions': {
           templateUrl: 'templates/ubicacions.html',

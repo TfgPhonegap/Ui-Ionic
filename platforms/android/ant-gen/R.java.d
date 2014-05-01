@@ -63,9 +63,16 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/res/values-ru/strings.xml \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/res/values-eu/strings.xml \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/res/values-he/strings.xml \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-xhdpi/launcher_icon.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-hdpi/launcher_icon.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-hdpi/icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-hdpi/shopper_icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-xxhdpi/launcher_icon.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-ldpi/icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable/launcher_icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable/share_via_barcode.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable/icon.png \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable/shopper_icon.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/res/drawable-mdpi/icon.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/AndroidManifest.xml \
