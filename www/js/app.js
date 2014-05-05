@@ -80,7 +80,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
     .state('tab.friend-accessos', {
-      url: '/friend/:friendId/accessos',
+      url: '/friend/:userName/accessos',
       views: {
         'accessos': {
           templateUrl: 'templates/accessos.html',

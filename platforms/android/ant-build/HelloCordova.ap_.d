@@ -91,17 +91,6 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/ionic.png \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/burriach.jpg \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/no_utilitzar.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/spiderman.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/heisenberg.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/thor.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/batman.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/heisenberg.png \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/ironman.png \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/wolverine.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/4.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/hulk.jpg \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/img/avatars/america.jpg \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.device \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.statusbar \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/plugins/org.apache.cordova.camera \

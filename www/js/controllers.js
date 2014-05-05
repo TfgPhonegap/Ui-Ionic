@@ -157,9 +157,16 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('AccessosController', function($scope, $stateParams, Accessos, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-  $scope.dies = Accessos.all();
+.controller('AccessosController', function($scope, $stateParams, $http) {
+  $scope.userName = $stateParams.userName;
+  console.log($stateParams.userName);
+  $scope.accessos = [];
+  $http.get('http://192.168.0.196:3000/accessos/' + $stateParams.userName).success(function (result) {
+      console.log(result);
+      $scope.accessos = result;
+  }).error(function (data) {
+    console.log('-------error------');
+  });
 })
 
 
