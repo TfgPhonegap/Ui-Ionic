@@ -21,16 +21,8 @@ angular.module('starter.controllers', [])
 })
 
 .controller('indexController', function($scope) {
-  $scope.textClick='no apretat';
+  $scope.textCodi='';
  
-    $scope.textClick='HAS APRETAT :)';
-    console.log('Camera pulsada.......');
-
-    //----------- PROVES CAMERA ---------------
-
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
-
     // Wait for device API libraries to load
     //
     document.addEventListener("deviceready",onDeviceReady,false);
@@ -38,10 +30,32 @@ angular.module('starter.controllers', [])
     // device APIs are available
     //
     function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
+        
+    }
+     $scope.fesFoto = function() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      cordova.plugins.barcodeScanner.scan(
+          function (result) {
+              alert("We got a barcode\n" +
+                    "Result: " + result.text + "\n" +
+                    "Format: " + result.format + "\n" +
+                    "Cancelled: " + result.cancelled);
+              $scope.textCodi = result.text;
+          }, 
+          function (error) {
+              alert("Scanning failed: " + error);
+          }
+       );
     }
 
+  /*  
+
+
+
+    //----------- PROVES CAMERA ---------------
+
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
     // Called when a photo is successfully retrieved
     //
     function onPhotoDataSuccess(imageData) {
@@ -116,7 +130,7 @@ angular.module('starter.controllers', [])
 
 
 
-    //-----------------------------------------
+    //-----------------------------------------*/
 
 
 })

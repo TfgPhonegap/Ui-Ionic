@@ -3,19 +3,16 @@
   <ion-content class="has-header">
   
     <ion-list>
-    	<!-- Acabar de pensar com mostrar les dates -->
-    <!--	<div ng-repeat="ubicacio in ubicacions | orderBy : ubicacio.data">
-    		<div class="item item-divider">{{dia.data}}</div> -->
-                                                <!-- Afegir id de ubicacio i passarlo, en comptes del 0 -->
-    		
-            <ion-item class="item" href=""
-            ng-repeat="ubicacio in ubicacions">
-    			{{ubicacio.lloc}}
-    		<span class="item-note">
-    			{{ubicacio.data}}
-		    </span>
-    		</ion-item>
-    <!--	</div> -->
+    	
+    <div ng-repeat="dia in ubicacions | orderBy : ubicacions.data">
+            <div class="item item-divider">{{dia.data}}</div>
+            <ion-item class="item" href="" ng-repeat="ubicacio in dia.ubicacionsDia">
+                {{ubicacio.lloc}}  
+            <span class="item-note">
+                {{ubicacio.hora}}
+            </span>
+            </ion-item>
+        </div>
     </ion-list>
   </ion-content>
 </ion-view>
