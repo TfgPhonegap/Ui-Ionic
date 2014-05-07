@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('indexController', function($scope) {
+.controller('indexController', function($scope, $location) {
   $scope.textCodi='';
  
     // Wait for device API libraries to load
@@ -33,6 +33,8 @@ angular.module('starter.controllers', [])
         
     }
      $scope.fesFoto = function() {
+      
+      
       // Take picture using device camera and retrieve image as base64-encoded string
       cordova.plugins.barcodeScanner.scan(
           function (result) {
@@ -40,7 +42,12 @@ angular.module('starter.controllers', [])
                     "Result: " + result.text + "\n" +
                     "Format: " + result.format + "\n" +
                     "Cancelled: " + result.cancelled);
-              $scope.textCodi = result.text;
+              // Canviem de vista segons el que es llegeixi del QR
+              if (result.text=='YAAY') {
+                console.log('Abans de canviar de vista....');
+                $location.path('/tab/friends');
+                $scope.$apply();
+              }
           }, 
           function (error) {
               alert("Scanning failed: " + error);
