@@ -40,6 +40,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
+    .state('tab.novaUbicacio', {
+      url: '/novaUbicacio',
+      views: {
+        'novaUbicacio': {
+          templateUrl: 'templates/novaUbicacio.html',
+          controller: 'novaUbicacioController'
+        }
+      }
+    })
+
     .state('tab.friends', {
       url: '/friends',
       views: {

@@ -262,6 +262,7 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-sanitize/angular-sanitize.min.js.map \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-sanitize/bower.json \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-sanitize/angular-sanitize.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/novaUbicacio.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/ubicacions.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tab-account.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/detallsUbicacio.html \

@@ -5,8 +5,6 @@ angular.module('starter.services', [])
  */
 .factory('Friends', function($http) {
   // Might use a resource here that returns a JSON array
-  
-  
   return {
     all: function() {
       var friends = [];
@@ -23,6 +21,21 @@ angular.module('starter.services', [])
       // Simple index lookup
       console.log(friends[friendId].id);
       return friends[friendId];
+    }
+  }
+})
+
+.factory('LastScan', function() {
+  // Might use a resource here that returns a JSON array
+  var scan = "";
+  
+  return {
+    getScanJson: function() {
+      // Simple index lookup
+      return scan;
+    },
+    setScanJson: function(newObj) {
+      scan = newObj;
     }
   }
 })

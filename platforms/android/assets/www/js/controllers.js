@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('indexController', function($scope, $location) {
+.controller('indexController', function($scope, $location, LastScan) {
   $scope.textCodi='';
  
     // Wait for device API libraries to load
@@ -33,26 +33,20 @@ angular.module('starter.controllers', [])
         
     }
      $scope.fesFoto = function() {
-      
-      
       // Take picture using device camera and retrieve image as base64-encoded string
       cordova.plugins.barcodeScanner.scan(
           function (result) {
-              alert("We got a barcode\n" +
-                    "Result: " + result.text + "\n" +
-                    "Format: " + result.format + "\n" +
-                    "Cancelled: " + result.cancelled);
-
-              if (result.text=='YAAY') {
-                console.log('Abans de canviar de vista....');
-                $location.path('/tab/friends');
+              // Canviem de vista segons el que es llegeixi del QR
+                var json_obj = JSON.parse( result.text );
+                LastScan.setScanJson(json_obj);
+                $location.path('/tab/novaUbicacio');
                 $scope.$apply();
-              }
           }, 
           function (error) {
               alert("Scanning failed: " + error);
           }
        );
+       
     }
 
   /*  
@@ -176,6 +170,10 @@ angular.module('starter.controllers', [])
   }).error(function (data) {
     console.log('-------error------');
   });
+})
+
+.controller('novaUbicacioController', function($scope, $stateParams, $http, LastScan) {
+  $scope.ubicacio = LastScan.getScanJson();
 })
 
 .controller('AccessosController', function($scope, $stateParams, $http) {
