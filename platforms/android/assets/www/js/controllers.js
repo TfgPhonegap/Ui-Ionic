@@ -33,6 +33,7 @@ angular.module('starter.controllers', [])
         
     }
      $scope.fesFoto = function() {
+      //$scope.$apply();
       // Take picture using device camera and retrieve image as base64-encoded string
       cordova.plugins.barcodeScanner.scan(
           function (result) {
@@ -172,8 +173,36 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('novaUbicacioController', function($scope, $stateParams, $http, LastScan) {
+.controller('novaUbicacioController', function($scope, $stateParams, $http, $ionicPopup,
+        $location, LastScan) {
   $scope.ubicacio = LastScan.getScanJson();
+  $scope.comment = {text: ''};
+  //Pensar si fer els gets aquí o al server.
+  var data = new Date();
+  $scope.moment = {objecteDate: data
+                  , hora: data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds()
+                  , data: data.getDate() + '-' + data.getMonth() + '-' + data.getFullYear()
+                  , string: data.toDateString()};
+  $scope.pujarUbicacio = function() {
+    var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora
+                , comentari: $scope.comment.text };
+    $http.post('http://192.168.0.196:3000/ubicacions/nova/Batman', data).success(function (result) {
+        console.log('SUCCES');
+
+            $ionicPopup.alert({
+              title: 'Dont eat that!',
+              content: 'Thats my sandwich'
+            }).then(function(res) {
+              $location.path('/tab/home');
+                $scope.$apply();
+            });
+
+       
+    }).error(function (data) {
+      console.log('-------error------');
+    });
+
+    };
 })
 
 .controller('AccessosController', function($scope, $stateParams, $http) {
