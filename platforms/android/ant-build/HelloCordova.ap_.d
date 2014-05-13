@@ -113,6 +113,7 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/ionic \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-animate \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-http-auth \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-ui-router \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-sanitize \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/ionic/fonts \
@@ -180,6 +181,9 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-animate/README.md \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-animate/angular-animate.min.js \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-animate/bower.json \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-http-auth/README.md \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-http-auth/http-auth-interceptor.js \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-http-auth/LICENSE \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-ui-router/src \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-ui-router/test \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/lib/angular-ui-router/README.md \
@@ -271,6 +275,6 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tab-friends.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tab-home.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/infinite.html \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/menu.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/friend-detail.html \
-/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tabs.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/AndroidManifest.xml \

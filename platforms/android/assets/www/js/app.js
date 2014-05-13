@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,114 +22,107 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
     // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/tab",
+    .state('app', {
+      url: "/app",
       abstract: true,
-      templateUrl: "templates/tabs.html"
+      templateUrl: "templates/menu.html",
+      controller: 'AppCtrl'
     })
 
     // Each tab has its own nav history stack:
 
-    .state('tab.home', {
+    .state('app.home', {
       url: '/home',
       views: {
-        'tab-home': {
+        'menu-content': {
           templateUrl: 'templates/tab-home.html',
           controller: 'HomeController'
         }
       }
     })
 
-    .state('tab.novaUbicacio', {
+    .state('app.novaUbicacio', {
       url: '/novaUbicacio',
       views: {
-        'novaUbicacio': {
+        'menu-content': {
           templateUrl: 'templates/novaUbicacio.html',
           controller: 'novaUbicacioController'
         }
       }
     })
 
-    .state('tab.friends', {
+    .state('app.friends', {
       url: '/friends',
       views: {
-        'tab-friends': {
+        'menu-content': {
           templateUrl: 'templates/tab-friends.html',
           controller: 'FriendsCtrl'
         }
       }
     })
-    .state('tab.friend-detail', {
+    .state('app.friend-detail', {
       url: '/friend/:friendName',
       views: {
-        'tab-friends': {
+        'menu-content': {
           templateUrl: 'templates/friend-detail.html',
           controller: 'FriendDetailCtrl'
         }
       }
     })
 
-     .state('tab.friend-ubicacions', {
+     .state('app.friend-ubicacions', {
       url: '/friend/:userName/ubicacions',
       views: {
-        'ubicacions': {
+        'menu-content': {
           templateUrl: 'templates/ubicacions.html',
           controller: 'UbicacionsController'
         }
       }
     })
 
-    .state('tab.detall-ubicacio', {
+    .state('app.detall-ubicacio', {
       url: '/friend/:friendId/ubicacions/:data/:ubicacioId',
       views: {
-        'detallsUbicacio': {
+        'menu-content': {
           templateUrl: 'templates/detallsUbicacio.html',
           controller: 'detallsUbicacioController'
         }
       }
     })
 
-    .state('tab.friend-accessos', {
+    .state('app.friend-accessos', {
       url: '/friend/:userName/accessos',
       views: {
-        'accessos': {
+        'menu-content': {
           templateUrl: 'templates/accessos.html',
           controller: 'AccessosController'
         }
       }
     })
-    .state('tab.perfil', {
+    .state('app.perfil', {
       url: '/perfil',
       views: {
-        'perfil': {
+        'menu-content': {
           templateUrl: 'templates/friend-detail.html',
           controller: 'ProfileController'
         }
       }
     })
 
-    .state('tab.account', {
-      url: '/account',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-account.html',
-          controller: 'AccountCtrl'
-        }
-      }
-    })
-    .state('tab.http', {
+
+    .state('app.http', {
       url: '/http',
       views: {
-        'http': {
+        'menu-content': {
           templateUrl: 'templates/http.html',
           controller: 'httpController'
         }
       }
     })
-    .state('tab.infinite', {
+    .state('app.infinite', {
       url: '/infinite',
       views: {
-        'infinite': {
+        'menu-content': {
           templateUrl: 'templates/infinite.html',
           controller: 'InfiniteController'
         }
@@ -137,7 +130,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/app/home');
 
 });
 

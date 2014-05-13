@@ -1,4 +1,41 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['http-auth-interceptor'])
+.factory('AuthenticationService', function($rootScope, $http, authService, $httpBackend) {
+  var service = {
+    login: function(user) {
+      $http.post('https://login', { user: user }, { ignoreAuthModule: true })
+      .success(function (data, status, headers, config) {
+
+      $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
+      console.log(data.authorizationToken);
+        
+      // Need to inform the http-auth-interceptor that
+        // the user has logged in successfully.  To do this, we pass in a function that
+        // will configure the request headers with the authorization token so
+        // previously failed requests(aka with status == 401) will be resent with the
+        // authorization token placed in the header
+        authService.loginConfirmed(data, function(config) {  // Step 2 & 3
+          config.headers.Authorization = data.authorizationToken;
+          return config;
+        });
+      })
+      .error(function (data, status, headers, config) {
+        $rootScope.$broadcast('event:auth-login-failed', status);
+      });
+    },
+    logout: function(user) {
+      $http.post('https://logout', {}, { ignoreAuthModule: true })
+      .finally(function(data) {
+        delete $http.defaults.headers.common.Authorization;
+        $rootScope.$broadcast('event:auth-logout-complete');
+      });     
+    },  
+    loginCancelled: function() {
+      authService.loginCancelled();
+    }
+  };
+  return service;
+})
+
 
 /**
  * A simple example service that returns some data.
@@ -199,14 +236,14 @@ angular.module('starter.services', [])
 
   // Some fake testing data
   var items = [
-    { title: "Home", link:"#/tab", type:"item item-icon-left", icon:"icon ion-home"},
-    { title: "Perfil", link:"#/tab/perfil", type:"item item-icon-left", icon:"icon ion-person"},
-    { title: "Ubicacions", link:"#/tab/friend/0/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
-    { title: "Acces", link:"#/tab/friend/0/accessos", type:"item item-icon-left", icon:"icon ion-key"},
-    { title: "Friends", link:"#/tab/friends", type:"item item-icon-left", icon:"icon ion-android-friends"},
-    { title: "Settings", link:"#/tab/friends", type:"item item-icon-left", icon:"icon ion-gear-a"},
-    { title: "http", link:"#/tab/http", type:"item item-icon-left", icon:"icon ion-ios7-world"},
-    { title: "Infinite", link:"#/tab/infinite", type:"item item-icon-left", icon:"icon ion-loading-b"}
+    { title: "Home", link:"#/app", type:"item item-icon-left", icon:"icon ion-home"},
+    { title: "Perfil", link:"#/app/perfil", type:"item item-icon-left", icon:"icon ion-person"},
+    { title: "Ubicacions", link:"#/app/friend/0/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
+    { title: "Acces", link:"#/app/friend/0/accessos", type:"item item-icon-left", icon:"icon ion-key"},
+    { title: "Friends", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-android-friends"},
+    { title: "Settings", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-gear-a"},
+    { title: "http", link:"#/app/http", type:"item item-icon-left", icon:"icon ion-ios7-world"},
+    { title: "Infinite", link:"#/app/infinite", type:"item item-icon-left", icon:"icon ion-loading-b"}
   ];
 
   return {
