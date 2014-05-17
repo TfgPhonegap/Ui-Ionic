@@ -2,7 +2,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
 .factory('AuthenticationService', function($rootScope, $http, authService, $httpBackend) {
   var service = {
     login: function(user) {
-      $http.post('https://login', { user: user }, { ignoreAuthModule: true })
+      $http.post('https://login', { user: user }, { ignoreAuthModule: false })
       .success(function (data, status, headers, config) {
 
       $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
@@ -45,7 +45,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   return {
     all: function() {
       var friends = [];
-      $http.get('http://192.168.0.196:3000/users').success(function (result) {
+      $http.get('http://192.168.0.194:3000/users').success(function (result) {
         console.log('SUCCEEEEEEEEES');
         console.log(result);
         return result;

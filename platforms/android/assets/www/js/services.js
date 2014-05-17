@@ -45,7 +45,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   return {
     all: function() {
       var friends = [];
-      $http.get('http://192.168.0.196:3000/users').success(function (result) {
+      $http.get('http://192.168.0.194:3000/users').success(function (result) {
         console.log('SUCCEEEEEEEEES');
         console.log(result);
         return result;

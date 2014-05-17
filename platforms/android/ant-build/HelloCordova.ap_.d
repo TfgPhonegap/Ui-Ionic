@@ -276,5 +276,7 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tab-home.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/infinite.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/menu.html \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/loginPopup.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/friend-detail.html \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/login.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/ant-build/AndroidManifest.xml \

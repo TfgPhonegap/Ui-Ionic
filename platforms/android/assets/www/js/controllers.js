@@ -2,13 +2,13 @@ angular.module('starter.controllers', [])
 
 
 .controller('AppCtrl', function($scope, $state, $ionicModal) {
-   
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
+    console.log('Apunt de saltar el modal....');
       $scope.loginModal = modal;
     },
     {
       scope: $scope,
-      animation: 'slide-in-up',
+      animation: 'slide-in-left',
       focusFirstInput: true
     }
   );
@@ -158,7 +158,7 @@ angular.module('starter.controllers', [])
 
 .controller('FriendsCtrl', function($scope, $http) {
   $scope.friends = [];
-  $http.get('http://192.168.0.196:3000/users').success(function (result) {
+  $http.get('http://192.168.0.194:3000/users').success(function (result) {
       $scope.friends = result;
   }).error(function (data) {
     console.log('-------error------');
@@ -167,7 +167,7 @@ angular.module('starter.controllers', [])
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, $http) {
   $scope.friend = [];
-  $http.get('http://192.168.0.196:3000/users/' + $stateParams.friendName).success(function (result) {
+  $http.get('http://192.168.0.194:3000/users/' + $stateParams.friendName).success(function (result) {
       $scope.friend = result;
   }).error(function (data) {
     console.log('-------error------');
@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
   $scope.userName = $stateParams.userName;
   console.log($scope.userName);
   $scope.ubicacions = [];
-  $http.get('http://192.168.0.196:3000/ubicacions/' + $stateParams.userName).success(function (result) {
+  $http.get('http://192.168.0.194:3000/ubicacions/' + $stateParams.userName).success(function (result) {
       $scope.ubicacions = result;
   }).error(function (data) {
     console.log('-------error------');
@@ -205,7 +205,7 @@ angular.module('starter.controllers', [])
   $scope.pujarUbicacio = function() {
     var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora
                 , comentari: $scope.comment.text };
-    $http.post('http://192.168.0.196:3000/ubicacions/nova/Batman', data).success(function (result) {
+    $http.post('http://192.168.0.194:3000/ubicacions/nova/Batman', data).success(function (result) {
         console.log('SUCCES');
 
             $ionicPopup.alert({
@@ -224,7 +224,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-  .controller('LoginCtrl', function($scope, $http, $state, AuthenticationService) {
+  .controller('LoginController', function($scope, $http, $state, $ionicPopup, AuthenticationService) {
   $scope.message = "";
   
   $scope.user = {
@@ -238,7 +238,30 @@ angular.module('starter.controllers', [])
  
   $scope.$on('event:auth-loginRequired', function(e, rejection) {
     console.log('Broadcaste cacheado en el controlladorrr');
-    $scope.loginModal.show();
+    //$scope.loginModal.show();
+   
+      $scope.data = {}
+
+      // An elaborate, custom popup
+      $ionicPopup.show({
+        templateUrl: 'templates/loginPopup.html',
+        title: 'LOGIN',
+        subTitle: $scope.message,
+        scope: $scope,
+        buttons: [
+          { text: 'Cancel', onTap: function(e) { return true; } },
+          {
+            text: '<b>Save</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              return $scope.data.wifi;
+            }
+          },
+        ]
+      }).then(function(res) {
+        console.log('Tapped!', res);
+        });
+
   });
  
   $scope.$on('event:auth-loginConfirmed', function() {
@@ -267,7 +290,7 @@ angular.module('starter.controllers', [])
   $scope.userName = $stateParams.userName;
   console.log($stateParams.userName);
   $scope.accessos = [];
-  $http.get('http://192.168.0.196:3000/accessos/' + $stateParams.userName).success(function (result) {
+  $http.get('http://192.168.0.194:3000/accessos/' + $stateParams.userName).success(function (result) {
       console.log(result);
       $scope.accessos = result;
   }).error(function (data) {
@@ -291,7 +314,7 @@ angular.module('starter.controllers', [])
 .controller('httpController', function($scope, $timeout, $http) {
   $scope.users = [];
   console.log('fora');
-  $http.get('http://192.168.0.196:3000/users').success(function (result) {
+  $http.get('http://192.168.0.194:3000/users').success(function (result) {
       console.log('dins');
       $scope.users = result;
   }).error(function (data) {
