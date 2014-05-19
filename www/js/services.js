@@ -2,10 +2,11 @@ angular.module('starter.services', ['http-auth-interceptor'])
 .factory('AuthenticationService', function($rootScope, $http, authService, $httpBackend) {
   var service = {
     login: function(user) {
-      $http.post('https://login', { user: user }, { ignoreAuthModule: false })
+      $http.post('http://192.168.0.194:3000/login', { user: user }, { ignoreAuthModule: false })
       .success(function (data, status, headers, config) {
 
       $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
+      $http.defaults.headers.common.username = data.username;
       console.log(data.authorizationToken);
         
       // Need to inform the http-auth-interceptor that
@@ -13,8 +14,10 @@ angular.module('starter.services', ['http-auth-interceptor'])
         // will configure the request headers with the authorization token so
         // previously failed requests(aka with status == 401) will be resent with the
         // authorization token placed in the header
+        // També afegim el nom d'usuari perquè el servidor sàpiga qui s'està conectat a ell.
         authService.loginConfirmed(data, function(config) {  // Step 2 & 3
           config.headers.Authorization = data.authorizationToken;
+          config.headers.username = data.username;
           return config;
         });
       })
@@ -34,6 +37,21 @@ angular.module('starter.services', ['http-auth-interceptor'])
     }
   };
   return service;
+})
+
+.factory('userApp', function() {
+  // Might use a resource here that returns a JSON array
+  var username = "";
+  
+  return {
+    getUsername: function() {
+      // Simple index lookup
+      return username;
+    },
+    setUsername: function(name) {
+      username = name;
+    }
+  }
 })
 
 
@@ -91,127 +109,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   }
 })
 
-.factory('Ubicacions', function() {
-  // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var dies = [
-    { data: '01-05-2001', ubicacionsDia: [
-      {id: 0,hora: '20:00', lloc: 'Burriach', imatge: 'img/burriach.jpg', 
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {id: 1,hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', 
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {id: 2,hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', 
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {id: 3,hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', 
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                    ]},
-      { data: '03-05-2014', ubicacionsDia: [
-      {id: 4, hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', 
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {id: 5,hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', 
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {id: 6,hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', 
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {id: 7,hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', 
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                    ]},
-
-      { data: '02-03-2014', ubicacionsDia: [
-      {id: 8,hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', 
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {id: 9,hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', 
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {id: 10,hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', 
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {id: 11,hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', 
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                   ]},
-
-      { data: '18-05-2012', ubicacionsDia: [
-      {id: 12,hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', 
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {id: 13,hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', 
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {id: 14,hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', 
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {id: 15,hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', 
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                   ]}
-    ];
-
-  return {
-    all: function() {
-      return dies;
-    },
-    get: function(data, ubicacioID) {
-      console.log('data');
-      console.log(dies[0].ubicacionsDia[0].hora);
-      return dies[0].ubicacionsDia[0];
-    }
-  }
-})
-
-.factory('Accessos', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var dies = [
-    { data: '01/05/2001', accessosDia: [
-      {hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                    ]},
-
-    { data: '03/05/2014', accessosDia: [
-      {hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                    ]},
-
-      { data: '02/03/2014', accessosDia: [
-      {hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', resultat: false,
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', resultat: false,
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', resultat: false,
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                   ]},
-
-      { data: '18/05/2012', accessosDia: [
-      {hora: '20:00', lloc: 'Burriach', imatge: 'img/ionic.png', resultat: false,
-      descripcio: 'El Castell de Burriac, o Castell de Sant Vicenç, és un castell que salça sobre el turó de Burriac, al terme Cabrera de Mar i tocant al dArgentona. Per la seva situació és molt visible des de bona part del Maresme central.'},
-      {hora: '17:00', lloc: 'Barcelona', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Barcelona és una ciutat i metròpoli a la costa mediterrània de la península Ibèrica. És la capital per antonomàsia de Catalunya essent-ho tant de la comunitat autònoma, com de la província de Barcelona i de la comarca del Barcelonès i la segona ciutat en població i pes econòmic de la península Ibèrica.'},
-      {hora: '23:00', lloc: 'VDM', imatge: 'img/ionic.png', resultat: false,
-      descripcio: 'Vilassar de mar és un pòbñle de 2000000 habitans'},
-      {hora: '05:00', lloc: 'Clap', imatge: 'img/ionic.png', resultat: true,
-      descripcio: 'Clapo mataró, dicoteca emblemàtica de mataró.'}
-                   ]}
-];
-
-  return {
-    all: function() {
-      return dies;
-    },
-    get: function(userId) {
-      // Simple index lookup
-      return dies;
-    }
-  }
-})
 
 .factory('NewsFeed', function() {
   // Might use a resource here that returns a JSON array
@@ -238,8 +136,8 @@ angular.module('starter.services', ['http-auth-interceptor'])
   var items = [
     { title: "Home", link:"#/app", type:"item item-icon-left", icon:"icon ion-home"},
     { title: "Perfil", link:"#/app/perfil", type:"item item-icon-left", icon:"icon ion-person"},
-    { title: "Ubicacions", link:"#/app/friend/0/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
-    { title: "Acces", link:"#/app/friend/0/accessos", type:"item item-icon-left", icon:"icon ion-key"},
+    { title: "Ubicacions", link:"#/app/friend/***/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
+    { title: "Acces", link:"#/app/friend/***/accessos", type:"item item-icon-left", icon:"icon ion-key"},
     { title: "Friends", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-android-friends"},
     { title: "Settings", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-gear-a"},
     { title: "http", link:"#/app/http", type:"item item-icon-left", icon:"icon ion-ios7-world"},
