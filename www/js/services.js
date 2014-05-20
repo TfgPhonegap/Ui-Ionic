@@ -95,33 +95,17 @@ angular.module('starter.services', ['http-auth-interceptor'])
   }
 })
 
-.factory('MyUser', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var user = { id: 99, name: 'Heisenberg', description:'Breaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking badBreaking bad', avatar: 'img/avatars/heisenberg.jpg' };
-
-  return {
-    get: function() {
-      // Simple index lookup
-      return user;
-    }
-  }
-})
 
 
 
-.factory('NewsFeed', function() {
-  // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var news = [
-    { id: 0, userName: 'Batman', avatar: 'img/avatars/batman.jpg', tipus: 'acces', 
-    comment: 'Comencem la setmana...', img: 'img/porta.jpg', lloc: 'Porta Feina'},
-    { id: 1 ,userName: 'Spiderman', avatar: 'img/avatars/spiderman.jpg', tipus: 'ubicacio',
-    comment: 'És una passada aquesta muntanya :)', img: 'img/burriach.jpg', lloc: 'Burriach' }
-  ];
-
+.factory('NewsFeed', function($http) {
+  var news = [];
+      $http.get('http://192.168.0.194:3000/novetats').success(function (result) {
+          news = result;
+      }).error(function (data) {
+        console.log('-------error------');
+      });
   return {
     all: function() {
       return news;
@@ -135,7 +119,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   // Some fake testing data
   var items = [
     { title: "Home", link:"#/app", type:"item item-icon-left", icon:"icon ion-home"},
-    { title: "Perfil", link:"#/app/perfil", type:"item item-icon-left", icon:"icon ion-person"},
+    { title: "Perfil", link:"#/app/friend/***", type:"item item-icon-left", icon:"icon ion-person"},
     { title: "Ubicacions", link:"#/app/friend/***/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
     { title: "Acces", link:"#/app/friend/***/accessos", type:"item item-icon-left", icon:"icon ion-key"},
     { title: "Friends", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-android-friends"},

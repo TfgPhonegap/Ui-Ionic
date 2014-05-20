@@ -21,16 +21,16 @@ angular.module('starter.controllers', [])
 
 .controller('HomeController', function($scope, NewsFeed, Friends, $timeout) {
   // Pensar com carregar les imatges
-  $scope.news = NewsFeed.all();
+  $scope.news = [];
   $scope.doRefresh = function() {
         
         console.log('Refreshing!');
         $timeout( function() {
-        var friend = Friends.get(Math.floor(Math.random() * 8));
-        console.log(friend.name);
-
-        $scope.news.unshift({id: friend.id, userName: friend.name, avatar: friend.avatar, tipus: 'ubicacio', 
-    comment: 'Caminata', img: 'img/burriach.jpg', lloc: 'Burriach'});
+        var llistaNovetats = NewsFeed.all();
+        for (var i=0; i<llistaNovetats.length; i++) {
+           $scope.news.unshift(llistaNovetats[i]);
+        }
+       
 
         //Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
@@ -80,9 +80,13 @@ angular.module('starter.controllers', [])
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, $http) {
+  var friend = $stateParams.friendName;
+  if (friend == '***')
+    friend = $http.defaults.headers.common.username;
   $scope.friend = [];
-  $http.get('http://192.168.0.194:3000/users/' + $stateParams.friendName).success(function (result) {
+  $http.get('http://192.168.0.194:3000/users/' + friend).success(function (result) {
       $scope.friend = result;
+      $scope.apply();
   }).error(function (data) {
     console.log('-------error------');
   });
@@ -97,6 +101,8 @@ angular.module('starter.controllers', [])
 
 .controller('UbicacionsController', function($scope, $stateParams, $http) {
   $scope.userName = $stateParams.userName;
+  if ($stateParams.userName=='***')
+    $scope.userName=$http.defaults.headers.common.username;
   console.log($scope.userName);
   $scope.ubicacions = [];
   $http.get('http://192.168.0.194:3000/ubicacions/' + $stateParams.userName).success(function (result) {
@@ -119,14 +125,14 @@ angular.module('starter.controllers', [])
   $scope.pujarUbicacio = function() {
     var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora
                 , comentari: $scope.comment.text };
-    $http.post('http://192.168.0.194:3000/ubicacions/nova/Batman', data).success(function (result) {
+    $http.post('http://192.168.0.194:3000/ubicacions/nova', data).success(function (result) {
         console.log('SUCCES');
 
             $ionicPopup.alert({
-              title: 'Dont eat that!',
-              content: 'Thats my sandwich'
+              title: 'Operació completada',
+              content: 'Ubicació pujada correctament!'
             }).then(function(res) {
-              $location.path('/tab/home');
+                $location.path('/tab/home');
                 $scope.$apply();
             });
 
@@ -213,7 +219,8 @@ angular.module('starter.controllers', [])
 
 .controller('AccessosController', function($scope, $stateParams, $http) {
   $scope.userName = $stateParams.userName;
-  console.log($stateParams.userName);
+  if ($stateParams.userName=='***')
+    $scope.userName=$http.defaults.headers.common.username;
   $scope.accessos = [];
   $http.get('http://192.168.0.194:3000/accessos/' + $stateParams.userName).success(function (result) {
       console.log(result);
