@@ -6,7 +6,7 @@
   	</ion-refresher>
 	    <div class="card" ng-repeat="new in news">
 	    	<div class="item item-avatar">
-			    <img src="{{new.avatar}}">
+			    <img ng-src='{{DireccioServer}}/images/avatar/{{new.userName}}'>
 			    <h2>{{new.userName}}</h2>
 			    <p ng-if="new.tipus=='acces'"><i class="icon ion-key"></i> Petició d'accés a {{new.lloc}}</p>
 			    <p ng-if="new.tipus=='ubicacio'"><i class="icon ion-android-location"></i> 

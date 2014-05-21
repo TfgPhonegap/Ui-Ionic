@@ -19,18 +19,19 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('HomeController', function($scope, NewsFeed, Friends, $timeout) {
+.controller('HomeController', function($scope, NewsFeed, Friends, $timeout, DireccioServer) {
   // Pensar com carregar les imatges
-  $scope.news = [];
+  $scope.news = NewsFeed.all();
+  $scope.DireccioServer = DireccioServer.getDir();
   $scope.doRefresh = function() {
         
         console.log('Refreshing!');
         $timeout( function() {
-        var llistaNovetats = NewsFeed.all();
-        for (var i=0; i<llistaNovetats.length; i++) {
+        $scope.news = NewsFeed.all();
+        //var llistaNovetats = NewsFeed.all();
+       /* for (var i=llistaNovetats.length-1; i>=0; i--) {
            $scope.news.unshift(llistaNovetats[i]);
-        }
-       
+        }*/
 
         //Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
@@ -70,21 +71,23 @@ angular.module('starter.controllers', [])
     }
 })
 
-.controller('FriendsCtrl', function($scope, $http) {
+.controller('FriendsCtrl', function($scope, $http, DireccioServer) {
   $scope.friends = [];
-  $http.get('http://192.168.0.194:3000/users').success(function (result) {
+  $scope.DireccioServer = DireccioServer.getDir();
+  $http.get(DireccioServer.getDir() + '/users').success(function (result) {
       $scope.friends = result;
   }).error(function (data) {
     console.log('-------error------');
   });
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, $http) {
+.controller('FriendDetailCtrl', function($scope, $stateParams, $http, DireccioServer) {
   var friend = $stateParams.friendName;
   if (friend == '***')
     friend = $http.defaults.headers.common.username;
   $scope.friend = [];
-  $http.get('http://192.168.0.194:3000/users/' + friend).success(function (result) {
+  $scope.DireccioServer = DireccioServer.getDir();
+  $http.get(DireccioServer.getDir() + '/users/' + friend).success(function (result) {
       $scope.friend = result;
       $scope.apply();
   }).error(function (data) {
@@ -99,13 +102,13 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('UbicacionsController', function($scope, $stateParams, $http) {
+.controller('UbicacionsController', function($scope, $stateParams, $http, DireccioServer) {
   $scope.userName = $stateParams.userName;
   if ($stateParams.userName=='***')
     $scope.userName=$http.defaults.headers.common.username;
   console.log($scope.userName);
   $scope.ubicacions = [];
-  $http.get('http://192.168.0.194:3000/ubicacions/' + $stateParams.userName).success(function (result) {
+  $http.get(DireccioServer.getDir() + '/ubicacions/' + $stateParams.userName).success(function (result) {
       $scope.ubicacions = result;
   }).error(function (data) {
     console.log('-------error------');
@@ -113,9 +116,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('novaUbicacioController', function($scope, $stateParams, $http, $ionicPopup,
-        $location, LastScan) {
+        $location, LastScan, DireccioServer) {
   $scope.ubicacio = LastScan.getScanJson();
   $scope.comment = {text: ''};
+  $scope.DireccioServer = DireccioServer.getDir();
   //Pensar si fer els gets aquí o al server.
   var data = new Date();
   $scope.moment = {objecteDate: data
@@ -125,7 +129,7 @@ angular.module('starter.controllers', [])
   $scope.pujarUbicacio = function() {
     var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora
                 , comentari: $scope.comment.text };
-    $http.post('http://192.168.0.194:3000/ubicacions/nova', data).success(function (result) {
+    $http.post(DireccioServer.getDir() + '/ubicacions/nova', data).success(function (result) {
         console.log('SUCCES');
 
             $ionicPopup.alert({
@@ -217,12 +221,12 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('AccessosController', function($scope, $stateParams, $http) {
+.controller('AccessosController', function($scope, $stateParams, $http, DireccioServer) {
   $scope.userName = $stateParams.userName;
   if ($stateParams.userName=='***')
     $scope.userName=$http.defaults.headers.common.username;
   $scope.accessos = [];
-  $http.get('http://192.168.0.194:3000/accessos/' + $stateParams.userName).success(function (result) {
+  $http.get(DireccioServer.getDir() + '/accessos/' + $stateParams.userName).success(function (result) {
       console.log(result);
       $scope.accessos = result;
   }).error(function (data) {
@@ -243,10 +247,10 @@ angular.module('starter.controllers', [])
   $scope.items = LeftPanel.all();
 })
 
-.controller('httpController', function($scope, $timeout, $http) {
+.controller('httpController', function($scope, $timeout, $http, DireccioServer) {
   $scope.users = [];
   console.log('fora');
-  $http.get('http://192.168.0.194:3000/users').success(function (result) {
+  $http.get(DireccioServer.getDir() + '/users').success(function (result) {
       console.log('dins');
       $scope.users = result;
   }).error(function (data) {

@@ -11,7 +11,7 @@
        <ion-item class="item item-avatar" ng-repeat="friend in friends | filter: search:strict" 
                   item="item" 
                   href="#/app/friend/{{friend.name}}">
-          <img ng-src='http://192.168.0.194:3000/images/avatar/{{friend.name}}'>
+          <img ng-src='{{DireccioServer}}/images/avatar/{{friend.name}}'>
 	      <h2>{{friend.name}}</h2>
 	      <p>{{friend.description}}</p>
         </ion-item>

@@ -2,7 +2,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
 .factory('AuthenticationService', function($rootScope, $http, authService, $httpBackend) {
   var service = {
     login: function(user) {
-      $http.post('http://192.168.0.194:3000/login', { user: user }, { ignoreAuthModule: false })
+      $http.post('https://192.168.0.194:3043/login', { user: user }, { ignoreAuthModule: false })
       .success(function (data, status, headers, config) {
 
       $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
@@ -54,6 +54,18 @@ angular.module('starter.services', ['http-auth-interceptor'])
   }
 })
 
+.factory('DireccioServer', function() {
+  // Might use a resource here that returns a JSON array
+  var ip = "https://192.168.0.194:3043";
+  
+  return {
+    getDir: function() {
+      // Simple index lookup
+      return ip;
+    }
+  }
+})
+
 
 /**
  * A simple example service that returns some data.
@@ -63,7 +75,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   return {
     all: function() {
       var friends = [];
-      $http.get('http://192.168.0.194:3000/users').success(function (result) {
+      $http.get('https://192.168.0.194:3043/users').success(function (result) {
         console.log('SUCCEEEEEEEEES');
         console.log(result);
         return result;
@@ -101,13 +113,13 @@ angular.module('starter.services', ['http-auth-interceptor'])
 
 .factory('NewsFeed', function($http) {
   var news = [];
-      $http.get('http://192.168.0.194:3000/novetats').success(function (result) {
+  return {
+    all: function() {
+      $http.get('https://192.168.0.194:3043/novetats').success(function (result) {
           news = result;
       }).error(function (data) {
         console.log('-------error------');
       });
-  return {
-    all: function() {
       return news;
     }
   }
