@@ -269,6 +269,7 @@
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/novaUbicacio.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/ubicacions.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/tab-account.html \
+/home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/nouAcces.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/detallsUbicacio.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/accessos.html \
 /home/calldidoctor/AngularJS/ionic/proves/platforms/android/assets/www/templates/http.html \

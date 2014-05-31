@@ -51,6 +51,16 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
       }
     })
 
+    .state('app.nouAcces', {
+      url: '/nouAcces',
+      views: {
+        'menu-content': {
+          templateUrl: 'templates/nouAcces.html',
+          controller: 'nouAccesController'
+        }
+      }
+    })
+
     .state('app.friends', {
       url: '/friends',
       views: {

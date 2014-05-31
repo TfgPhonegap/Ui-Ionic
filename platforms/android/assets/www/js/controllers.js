@@ -60,8 +60,14 @@ angular.module('starter.controllers', [])
               // Canviem de vista segons el que es llegeixi del QR
                 var json_obj = JSON.parse( result.text );
                 LastScan.setScanJson(json_obj);
-                $location.path('/app/novaUbicacio');
-                $scope.$apply();
+                if (json_obj.tipus == "novaUbicacio") {
+                  $location.path('/app/novaUbicacio');
+                  $scope.$apply();
+                }
+                else if (json_obj.tipus == "nouAcces") {
+                  $location.path('/app/nouAcces');
+                  $scope.$apply();
+                }
           }, 
           function (error) {
               alert("Scanning failed: " + error);
@@ -148,6 +154,35 @@ angular.module('starter.controllers', [])
     };
 })
 
+
+.controller('nouAccesController', function($scope, $stateParams, $http, $ionicPopup,
+        $location, LastScan, DireccioServer) {
+  $scope.acces = LastScan.getScanJson();
+  $scope.DireccioServer = DireccioServer.getDir();
+  //Pensar si fer els gets aquí o al server.
+  var data = new Date();
+  $scope.moment = {objecteDate: data
+                  , hora: data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds()
+                  , data: data.getDate() + '-' + data.getMonth() + '-' + data.getFullYear()
+                  , string: data.toDateString()};
+  $scope.demanarAcces = function() {
+    var data = {idPorta: $scope.acces.id, data: $scope.moment.data, hora: $scope.moment.hora};
+    $http.post(DireccioServer.getDir() + '/accessos/nou', data).success(function (result) {
+            $ionicPopup.alert({
+              title: 'Operació completada',
+              content: result.resolucioAcces
+            }).then(function(res) {
+                $location.path('/tab/home');
+                $scope.$apply();
+            });
+
+       
+    }).error(function (data) {
+      console.log('-------error------');
+    });
+
+    };
+})
   .controller('LoginController', function($scope, $http, $state, $ionicPopup, AuthenticationService) {
   $scope.message = "";
   
