@@ -197,12 +197,10 @@ angular.module('starter.controllers', [])
   };
  
   $scope.$on('event:auth-loginRequired', function(e, rejection) {
-    console.log('Broadcaste cacheado en el controlladorrr');
-    //$scope.loginModal.show();
    
       $scope.data = {}
 
-      // An elaborate, custom popup
+      // Popup personalitzat
       var popup = $ionicPopup.show({
         templateUrl: 'templates/loginPopup.html',
         title: 'LOGIN',
@@ -280,6 +278,195 @@ angular.module('starter.controllers', [])
 .controller('LeftPanelController', function($scope, LeftPanel) {
 
   $scope.items = LeftPanel.all();
+})
+
+.controller('SettingsController', function($scope, $ionicPopup, $http, DireccioServer) {
+  $scope.password = {old: '', new1:'', new2:''};
+  $scope.estat = {text:''};
+  $scope.modificaContrassenya = function(){
+     var popup = $ionicPopup.show({
+        templateUrl: 'templates/popupContrasenya.html',
+        title: 'Modifica Contrassenya',
+        subTitle: $scope.message,
+        scope: $scope,
+        buttons: [
+          {
+            text: 'Submit',
+            type: 'button-positive',
+            onTap: function(e) {
+              if ($scope.password.old == '' || $scope.password.new1 == '' || $scope.password.new2 == '') {
+                $ionicPopup.alert({
+                  title: 'Alerta',
+                  content: 'Tots els camps són obligatoris'
+                });
+              }
+              else if ($scope.password.new1 != $scope.password.new2 ) {
+                $ionicPopup.alert({
+                  title: 'Alerta',
+                  content: 'La nova contrasenya no concorda.'
+                });
+              }
+              else
+                return $scope.password;
+            }
+          },
+          {
+            text: 'Cancel',
+            type: 'button-dark',
+            onTap: function() { 
+              console.log($scope.password);
+              $scope.tanca = true;
+            return $scope.password;    
+            }
+          }
+
+
+        ]
+      });
+      popup.then(function(res) {
+        //Funcio que envii la contrassenya.
+        console.log('then');
+        if ($scope.tanca) {
+          $scope.password = {old: '', new1:'', new2:''};
+          $scope.tanca = false;
+        }
+        else {
+          $http.put(DireccioServer.getDir() + '/modificaPassword', $scope.password).success(function (result) {
+            console.log('SUCCES');
+
+                $ionicPopup.alert({
+                  title: 'Operació completada',
+                  content: result.resolucio
+                }).then(function(res) {
+                    //$location.path('/tab/home');
+                    //$scope.$apply();
+                });
+
+           
+        }).error(function (data) {
+          console.log('-------error------');
+        });
+          
+        }
+      });
+
+
+  };
+
+  $scope.modificaEstat = function(){
+     var popup = $ionicPopup.show({
+        templateUrl: 'templates/popupNouEstat.html',
+        title: 'Modifica frase estat',
+        scope: $scope,
+        buttons: [
+          {
+            text: 'Submit',
+            type: 'button-positive',
+            onTap: function(e) {
+              if ($scope.estat.text == '') {
+                $ionicPopup.alert({
+                  title: 'Alerta',
+                  content: 'Tots els camps són obligatoris'
+                });
+              }
+              else
+                return $scope.estat;
+            }
+          },
+          {
+            text: 'Cancel',
+            type: 'button-dark',
+            onTap: function() { 
+              $scope.tanca = true;
+            return $scope.estat;    
+            }
+          }
+
+
+        ]
+      });
+      popup.then(function(res) {
+        //Funcio que envii la contrassenya.
+        console.log('then');
+        if ($scope.tanca) {
+          $scope.estat = {text: ''};
+          $scope.tanca = false;
+        }
+        else {
+          $http.put(DireccioServer.getDir() + '/modificaEstat', $scope.estat).success(function (result) {
+            console.log('SUCCES');
+
+                $ionicPopup.alert({
+                  title: 'Operació completada',
+                  content: result.resolucio
+                }).then(function(res) {
+                    //$location.path('/tab/home');
+                    //$scope.$apply();
+                });
+
+           
+        }).error(function (data) {
+          console.log('-------error------');
+        });
+          
+        }
+      });
+
+
+  };
+
+ /* function uploadPhoto(imageURI) {
+      var options = new FileUploadOptions();
+      options.fileKey="file";
+      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.png';
+      options.mimeType="text/plain";
+
+      var params = new Object();
+
+      options.params = params;
+
+      //provar si arribar aqui
+      $scope.infoImatge = {nom: 'yayy mass'}
+
+      var ft = new FileTransfer();
+      ft.upload(imageURI, encodeURI("http://192.168.1.37:3000/modificaAvatar"), win, fail, options);
+  }   */
+  $scope.modificaAvatar = function(){
+    navigator.camera.getPicture(uploadPhoto,
+            function(message) { alert('get picture failed'); },
+            { quality: 50, 
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+            );
+
+    function uploadPhoto(imageURI) {
+    var options = new FileUploadOptions();
+    options.fileKey="file";
+    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.png';
+    options.mimeType="text/plain";
+    var params = new Object();
+    options.params = params;
+    var headers={'username': $http.defaults.headers.common.username};
+
+    options.headers = headers;
+    $scope.infoImatge = {nom: imageURI};
+    var ft = new FileTransfer();
+    ft.upload(imageURI, encodeURI("http://192.168.1.37:3000/modificaAvatar"), win, fail, options);
+    }
+
+    function win(r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+    }
+
+    function fail(error) {
+        alert("An error has occurred: Code = " + error.code);
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+    }
+  };
+
 })
 
 .controller('httpController', function($scope, $timeout, $http, DireccioServer) {

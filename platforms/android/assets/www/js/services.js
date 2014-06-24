@@ -2,7 +2,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
 .factory('AuthenticationService', function($rootScope, $http, authService, $httpBackend) {
   var service = {
     login: function(user) {
-      $http.post('https://192.168.0.199:3043/login', { user: user }, { ignoreAuthModule: false })
+      $http.post('https://192.168.1.37:3043/login', { user: user }, { ignoreAuthModule: false })
       .success(function (data, status, headers, config) {
 
       $http.defaults.headers.common.Authorization = data.authorizationToken;  // Step 1
@@ -56,7 +56,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
 
 .factory('DireccioServer', function() {
   // Might use a resource here that returns a JSON array
-  var ip = "https://192.168.0.199:3043";
+  var ip = "https://192.168.1.37:3043";
   
   return {
     getDir: function() {
@@ -75,7 +75,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   return {
     all: function() {
       var friends = [];
-      $http.get('https://192.168.0.199:3043/users').success(function (result) {
+      $http.get('https://192.168.1.37:3043/users').success(function (result) {
         console.log('SUCCEEEEEEEEES');
         console.log(result);
         return result;
@@ -115,7 +115,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
   var news = [];
   return {
     all: function() {
-      $http.get('https://192.168.0.199:3043/novetats').success(function (result) {
+      $http.get('https://192.168.1.37:3043/novetats').success(function (result) {
           news = result;
       }).error(function (data) {
         console.log('-------error------');
@@ -135,7 +135,7 @@ angular.module('starter.services', ['http-auth-interceptor'])
     { title: "Ubicacions", link:"#/app/friend/***/ubicacions", type:"item item-icon-left", icon:"icon ion-android-location"},
     { title: "Acces", link:"#/app/friend/***/accessos", type:"item item-icon-left", icon:"icon ion-key"},
     { title: "Friends", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-android-friends"},
-    { title: "Settings", link:"#/app/friends", type:"item item-icon-left", icon:"icon ion-gear-a"}/*,
+    { title: "Settings", link:"#/app/settings", type:"item item-icon-left", icon:"icon ion-gear-a"}/*,
     { title: "http", link:"#/app/http", type:"item item-icon-left", icon:"icon ion-ios7-world"},
     { title: "Infinite", link:"#/app/infinite", type:"item item-icon-left", icon:"icon ion-loading-b"}*/
   ];
