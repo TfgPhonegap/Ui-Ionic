@@ -38,9 +38,10 @@ public final class R {
     }
     public static final class drawable {
         public static final int icon=0x7f020000;
-        public static final int launcher_icon=0x7f020001;
-        public static final int share_via_barcode=0x7f020002;
-        public static final int shopper_icon=0x7f020003;
+        public static final int icon2=0x7f020001;
+        public static final int launcher_icon=0x7f020002;
+        public static final int share_via_barcode=0x7f020003;
+        public static final int shopper_icon=0x7f020004;
     }
     public static final class id {
         public static final int back_button=0x7f090019;
@@ -108,7 +109,6 @@ public final class R {
         public static final int app_name=0x7f0a0000;
         /**  <string name="app_name">ماسح الرمز الشريطي</string> 
  <string name="app_name">Баркод Скенер</string> 
- <string name="app_name">Barcode Scanner</string> 
  <string name="app_name">Barcode Scanner</string> 
  <string name="app_name">Barcode Scanner</string> 
  <string name="app_name">Barcode Scanner</string> 

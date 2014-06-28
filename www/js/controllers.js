@@ -3,7 +3,6 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $state, $ionicModal) {
   $ionicModal.fromTemplateUrl('templates/login.html', function(modal) {
-    console.log('Apunt de saltar el modal....');
       $scope.loginModal = modal;
     },
     {
@@ -21,17 +20,19 @@ angular.module('starter.controllers', [])
 
 .controller('HomeController', function($scope, NewsFeed, Friends, $timeout, DireccioServer) {
   // Pensar com carregar les imatges
+  $scope.capNoticia = false;
   $scope.news = NewsFeed.all();
+  $scope.info = {midaNews: $scope.news.length};
+  if ($scope.news.length == 0)
+    $scope.capNoticia = true;
   $scope.DireccioServer = DireccioServer.getDir();
   $scope.doRefresh = function() {
         
         console.log('Refreshing!');
         $timeout( function() {
         $scope.news = NewsFeed.all();
-        //var llistaNovetats = NewsFeed.all();
-       /* for (var i=llistaNovetats.length-1; i>=0; i--) {
-           $scope.news.unshift(llistaNovetats[i]);
-        }*/
+        if ($scope.news.length > 0)
+          $scope.capNoticia = false;
 
         //Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
@@ -53,8 +54,6 @@ angular.module('starter.controllers', [])
         
     }
      $scope.fesFoto = function() {
-      //$scope.$apply();
-      // Take picture using device camera and retrieve image as base64-encoded string
       cordova.plugins.barcodeScanner.scan(
           function (result) {
               // Canviem de vista segons el que es llegeixi del QR
@@ -108,7 +107,7 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('UbicacionsController', function($scope, $stateParams, $http, DireccioServer) {
+.controller('UbicacionsController', function($scope, $ionicPopup, $stateParams, $http, DireccioServer) {
   $scope.userName = $stateParams.userName;
   if ($stateParams.userName=='***')
     $scope.userName=$http.defaults.headers.common.username;
@@ -124,17 +123,15 @@ angular.module('starter.controllers', [])
 .controller('novaUbicacioController', function($scope, $stateParams, $http, $ionicPopup,
         $location, LastScan, DireccioServer) {
   $scope.ubicacio = LastScan.getScanJson();
-  $scope.comment = {text: ''};
   $scope.DireccioServer = DireccioServer.getDir();
   //Pensar si fer els gets aquí o al server.
   var data = new Date();
   $scope.moment = {objecteDate: data
                   , hora: data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds()
-                  , data: data.getDate() + '-' + data.getMonth() + '-' + data.getFullYear()
+                  , data: data.getDate() + '-' + (data.getMonth()+1) + '-' + data.getFullYear()
                   , string: data.toDateString()};
   $scope.pujarUbicacio = function() {
-    var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora
-                , comentari: $scope.comment.text };
+    var data = {lloc: $scope.ubicacio.lloc, data: $scope.moment.data, hora: $scope.moment.hora};
     $http.post(DireccioServer.getDir() + '/ubicacions/nova', data).success(function (result) {
         console.log('SUCCES');
 
@@ -163,10 +160,10 @@ angular.module('starter.controllers', [])
   var data = new Date();
   $scope.moment = {objecteDate: data
                   , hora: data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds()
-                  , data: data.getDate() + '-' + data.getMonth() + '-' + data.getFullYear()
+                  , data: data.getDate() + '-' + (data.getMonth()+1) + '-' + data.getFullYear()
                   , string: data.toDateString()};
   $scope.demanarAcces = function() {
-    var data = {idPorta: $scope.acces.id, data: $scope.moment.data, hora: $scope.moment.hora};
+    var data = {idPorta: $scope.acces.id, clau: $scope.acces.clau, data: $scope.moment.data, hora: $scope.moment.hora};
     $http.post(DireccioServer.getDir() + '/accessos/nou', data).success(function (result) {
             $ionicPopup.alert({
               title: 'Operació completada',
@@ -208,12 +205,10 @@ angular.module('starter.controllers', [])
         scope: $scope,
         buttons: [
           {
-            text: 'Submit',
+            text: 'Entra',
             type: 'button-positive',
             onTap: function(e) {
               if($scope.user.password==null) {
-                console.log('nuuuuulllllllll');
-                //e.preventDefault();
                 return $scope.data;
               }
               else {
@@ -235,15 +230,6 @@ angular.module('starter.controllers', [])
    $scope.username = null;
    $scope.password = null;
      $scope.loginModal.hide();
-  });
-  
-  //Aquí hauré de mostrar un altre popup dient que algo de la autenticació falla.
-  $scope.$on('event:auth-login-failed', function(e, status) {
-    var error = "Login failed.";
-    if (status == 401) {
-      error = "Invalid Username or Password.";
-    }
-    $scope.message = error;
   });
  
   $scope.$on('event:auth-logout-complete', function() {
@@ -286,7 +272,7 @@ angular.module('starter.controllers', [])
   $scope.modificaContrassenya = function(){
      var popup = $ionicPopup.show({
         templateUrl: 'templates/popupContrasenya.html',
-        title: 'Modifica Contrassenya',
+        title: 'Modifica Contrasenya',
         subTitle: $scope.message,
         scope: $scope,
         buttons: [
@@ -341,7 +327,7 @@ angular.module('starter.controllers', [])
                     //$location.path('/tab/home');
                     //$scope.$apply();
                 });
-
+                $scope.password = {old: '', new1:'', new2:''};
            
         }).error(function (data) {
           console.log('-------error------');
@@ -400,8 +386,6 @@ angular.module('starter.controllers', [])
                   title: 'Operació completada',
                   content: result.resolucio
                 }).then(function(res) {
-                    //$location.path('/tab/home');
-                    //$scope.$apply();
                 });
 
            
@@ -415,25 +399,9 @@ angular.module('starter.controllers', [])
 
   };
 
- /* function uploadPhoto(imageURI) {
-      var options = new FileUploadOptions();
-      options.fileKey="file";
-      options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1)+'.png';
-      options.mimeType="text/plain";
-
-      var params = new Object();
-
-      options.params = params;
-
-      //provar si arribar aqui
-      $scope.infoImatge = {nom: 'yayy mass'}
-
-      var ft = new FileTransfer();
-      ft.upload(imageURI, encodeURI("http://192.168.1.37:3000/modificaAvatar"), win, fail, options);
-  }   */
   $scope.modificaAvatar = function(){
     navigator.camera.getPicture(uploadPhoto,
-            function(message) { alert('get picture failed'); },
+            function(message) { },
             { quality: 50, 
             destinationType: navigator.camera.DestinationType.FILE_URI,
             sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
@@ -449,9 +417,8 @@ angular.module('starter.controllers', [])
     var headers={'username': $http.defaults.headers.common.username};
 
     options.headers = headers;
-    $scope.infoImatge = {nom: imageURI};
     var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://192.168.1.37:3000/modificaAvatar"), win, fail, options);
+    ft.upload(imageURI, encodeURI("http://192.168.0.196:3000/modificaAvatar"), win, fail, options);
     }
 
     function win(r) {
@@ -478,54 +445,6 @@ angular.module('starter.controllers', [])
   }).error(function (data) {
     console.log('-------error------');
   });
- /*$http.get('http://localhost:3000/users')
-    .success(function(data, status, headers, config){
-      console.log("**** SUCCESS ****");
-      console.log(status);
-    })
-    .error(function(data, status, headers, config){
-      console.log("**** ERROR ****");
-      console.log(status);
-      console.log(data);
-    })
-    .then(function(response){
-      console.log("**** THEN ****");
-
-      var jsonData = response.data.mythings;
-      var jsonKeys = Object.keys(jsonData);
-
-      for (var i = 0; i < jsonKeys.length; i++) {
-        var jsonSingle = jsonData[jsonKeys[i]];
-        things.push(jsonSingle);
-      }
-    })
-
-  return {
-    all: function() {
-      return things;
-    }
-  }*/
-
  
 })
-.controller('InfiniteController', function($scope, $timeout) {
 
-  $scope.llista2 = ['Item 1', 'Item 2', 'Item 3'];
-    
-    
-  $scope.loadMore = function() {
-        
-        console.log('Scrolling!');
-        $timeout( function() {
-
-        $scope.llista2.push('New Item ' + Math.floor(Math.random() * 1000) + 4);
-        $scope.llista2.push('New Item ' + Math.floor(Math.random() * 1000) + 4);
-        $scope.llista2.push('New Item ' + Math.floor(Math.random() * 1000) + 4);
-        $scope.llista2.push('New Item ' + Math.floor(Math.random() * 1000) + 4);
-
-        //Stop the ion-refresher from spinning
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        
-        }, 1000);
-};
-});

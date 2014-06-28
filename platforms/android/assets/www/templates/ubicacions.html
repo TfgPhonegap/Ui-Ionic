@@ -6,12 +6,12 @@
     	
     <div ng-repeat="dia in ubicacions | orderBy : ubicacions.data">
             <div class="item item-divider">{{dia.data}}</div>
-            <ion-item class="item" href="" ng-repeat="ubicacio in dia.ubicacionsDia">
-                {{ubicacio.lloc}}  
+            <li class="item" href="" ng-repeat="ubicacio in dia.ubicacionsDia">
+                {{ubicacio.lloc}} 
             <span class="item-note">
                 {{ubicacio.hora}}
             </span>
-            </ion-item>
+            </li>
         </div>
     </ion-list>
   </ion-content>

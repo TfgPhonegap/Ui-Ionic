@@ -1,9 +1,10 @@
-<ion-view title="Home">
+<ion-view title="Novetats">
   <ion-content>
 	<ion-refresher
 	    pulling-text="Pull to refresh..."
 	    on-refresh="doRefresh()">
   	</ion-refresher>
+  		<i class="icon ion-ios7-arrow-thin-down" ng-if="capNoticia"></i>
 	    <div class="card" ng-repeat="new in news">
 	    	<div class="item item-avatar">
 			    <img ng-src='{{DireccioServer}}/images/avatar/{{new.userName}}'>
@@ -13,11 +14,6 @@
 			    Ha estat a {{new.lloc}}</p>
 
 			</div>
-			<!--<div class="item item-body">
-			    <p>
-			      {{new.comment}}
-			    </p>
-			    <img class="full image" src="{{new.img}}"> -->
 			</div>
 	    </div>
   </ion-content>

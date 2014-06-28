@@ -38,6 +38,11 @@
   background-color: #00FF00;
 }
 .descripcio {
-  
+  width: 600px;
   height: 100px;
+}
+
+i.icon.ion-ios7-arrow-thin-down {
+  margin-left: 163px;
+  font-size: 90px;
 }

@@ -128,26 +128,6 @@ angular.module('starter', ['ionic', 'starter.services', 'starter.controllers'])
       }
     })
 
-
-    .state('app.http', {
-      url: '/http',
-      views: {
-        'menu-content': {
-          templateUrl: 'templates/http.html',
-          controller: 'httpController'
-        }
-      }
-    })
-    .state('app.infinite', {
-      url: '/infinite',
-      views: {
-        'menu-content': {
-          templateUrl: 'templates/infinite.html',
-          controller: 'InfiniteController'
-        }
-      }
-    })
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/home');
 

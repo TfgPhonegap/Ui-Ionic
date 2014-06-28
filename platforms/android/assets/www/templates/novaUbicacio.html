@@ -7,14 +7,11 @@
 
 	<div class="item">
 		<div class="descripcio">
-			<h2>Moment: {{moment.data}} / {{moment.hora}}</h2>
-			<h2>String: {{moment.string}}</h2>
-			<h2>{{ubicacio.lloc}}</h2>		
+			<h2>Ubicació: {{ubicacio.lloc}}</h2>
+			<h2>Data: {{moment.data}}</h2>
+			<h2>Hota: {{moment.hora}}</h2>	
 		</div>
 	</div>
-	<label class="item item-input">
-		<textarea ng-model="comment.text" rows="7" placeholder="Comments"></textarea>
-	</label>
 	<button class="button button-full button-positive" ng-click="pujarUbicacio()">
 	  Submit
 	</button>
