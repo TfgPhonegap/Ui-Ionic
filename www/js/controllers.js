@@ -33,8 +33,6 @@ angular.module('starter.controllers', [])
         $scope.news = NewsFeed.all();
         if ($scope.news.length > 0)
           $scope.capNoticia = false;
-
-        //Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
         
         }, 1000);
@@ -156,7 +154,6 @@ angular.module('starter.controllers', [])
         $location, LastScan, DireccioServer) {
   $scope.acces = LastScan.getScanJson();
   $scope.DireccioServer = DireccioServer.getDir();
-  //Pensar si fer els gets aquí o al server.
   var data = new Date();
   $scope.moment = {objecteDate: data
                   , hora: data.getHours() + ':' + data.getMinutes() + ':' + data.getSeconds()
@@ -310,7 +307,6 @@ angular.module('starter.controllers', [])
         ]
       });
       popup.then(function(res) {
-        //Funcio que envii la contrassenya.
         console.log('then');
         if ($scope.tanca) {
           $scope.password = {old: '', new1:'', new2:''};
@@ -324,8 +320,6 @@ angular.module('starter.controllers', [])
                   title: 'Operació completada',
                   content: result.resolucio
                 }).then(function(res) {
-                    //$location.path('/tab/home');
-                    //$scope.$apply();
                 });
                 $scope.password = {old: '', new1:'', new2:''};
            
@@ -372,7 +366,6 @@ angular.module('starter.controllers', [])
         ]
       });
       popup.then(function(res) {
-        //Funcio que envii la contrassenya.
         console.log('then');
         if ($scope.tanca) {
           $scope.estat = {text: ''};
@@ -434,17 +427,5 @@ angular.module('starter.controllers', [])
     }
   };
 
-})
-
-.controller('httpController', function($scope, $timeout, $http, DireccioServer) {
-  $scope.users = [];
-  console.log('fora');
-  $http.get(DireccioServer.getDir() + '/users').success(function (result) {
-      console.log('dins');
-      $scope.users = result;
-  }).error(function (data) {
-    console.log('-------error------');
-  });
- 
 })
 
